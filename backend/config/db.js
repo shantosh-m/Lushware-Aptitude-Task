@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 module.exports = async function connectDB() {
-  const uri = process.env.MONGO_URI || 'mongodb://localhost:27017/cmms_db';
+  const uri = process.env.MONGO_URI;
   try {
     await mongoose.connect(uri, { useNewUrlParser: true, useUnifiedTopology: true });
     console.log('MongoDB connected');

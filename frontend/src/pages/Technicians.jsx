@@ -8,18 +8,18 @@ export default function Technicians(){
   const [list,setList]=useState([]); const [open,setOpen]=useState(false); const [form,setForm]=useState({ name:'', email:'', phone:'', skills:[] });
   const auth = useAuth();
   const toast = useToast();
-  const load=async()=>{ const r=await axios.get('http://localhost:4000/api/technicians'); setList(r.data); };
+  const load=async()=>{ const r=await axios.get('https://my-backend-r5al.onrender.com/api/technicians'); setList(r.data); };
   useEffect(()=>{ load(); },[]);
-  const submit=async()=>{ await axios.post('http://localhost:4000/api/technicians', { ...form, skills: form.skills }, { headers:{ Authorization:`Bearer ${auth.token}` }}); setOpen(false); setForm({ name:'', email:'', phone:'', skills:[]}); load(); toast.push('Technician created','success'); };
+  const submit=async()=>{ await axios.post('https://my-backend-r5al.onrender.com/api/technicians', { ...form, skills: form.skills }, { headers:{ Authorization:`Bearer ${auth.token}` }}); setOpen(false); setForm({ name:'', email:'', phone:'', skills:[]}); load(); toast.push('Technician created','success'); };
   const [edit,setEdit]=useState(null);
   const [confirmDel,setConfirmDel]=useState({ open:false, id:null });
   const startEdit=(tech)=>{ setEdit(tech); setForm({ name:tech.name||'', email:tech.email||'', phone:tech.phone||'', skills:(tech.skills||[]) }); setOpen(true); };
-  const update=async()=>{ if(!edit) return; await axios.put(`http://localhost:4000/api/technicians/${edit._id}`, { ...form, skills: form.skills }, { headers:{ Authorization:`Bearer ${auth.token}` }}); setOpen(false); setEdit(null); setForm({ name:'', email:'', phone:'', skills:''}); load(); toast.push('Technician updated','success'); };
+  const update=async()=>{ if(!edit) return; await axios.put(`https://my-backend-r5al.onrender.com/api/technicians/${edit._id}`, { ...form, skills: form.skills }, { headers:{ Authorization:`Bearer ${auth.token}` }}); setOpen(false); setEdit(null); setForm({ name:'', email:'', phone:'', skills:''}); load(); toast.push('Technician updated','success'); };
   const remove=async(id)=>{ setConfirmDel({ open:true, id }); };
   const skills = ["HVAC", "Electrical", "Plumbing", "Fire Safety"];
   const doRemove=async()=>{
     if (!confirmDel.id) return;
-    await axios.delete(`http://localhost:4000/api/technicians/${confirmDel.id}`, { headers:{ Authorization:`Bearer ${auth.token}` }});
+    await axios.delete(`https://my-backend-r5al.onrender.com/api/technicians/${confirmDel.id}`, { headers:{ Authorization:`Bearer ${auth.token}` }});
     setConfirmDel({ open:false, id:null });
     load(); toast.push('Technician deleted','info');
   };

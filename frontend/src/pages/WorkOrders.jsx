@@ -56,7 +56,7 @@ export default function WorkOrders() {
 
 
   const load = async () => {
-    const res = await axios.get("http://localhost:4000/api/workorders", {
+    const res = await axios.get("https://my-backend-r5al.onrender.com/api/workorders", {
       headers: { Authorization: `Bearer ${auth.token}` },
     });
     setList(res.data);
@@ -68,10 +68,10 @@ export default function WorkOrders() {
 
   const fetchMeta = async () => {
     const [a, t] = await Promise.all([
-      axios.get("http://localhost:4000/api/assets", {
+      axios.get("https://my-backend-r5al.onrender.com/api/assets", {
         headers: { Authorization: `Bearer ${auth.token}` },
       }),
-      axios.get("http://localhost:4000/api/technicians"),
+      axios.get("https://my-backend-r5al.onrender.com/api/technicians"),
     ]);
     setAssets(a.data);
     setTechs(t.data);
@@ -84,7 +84,7 @@ export default function WorkOrders() {
       if (v !== "" && v !== undefined && v !== null) fd.append(k, v);
     });
     [...files].forEach((f) => fd.append("attachments", f));
-    await axios.post("http://localhost:4000/api/workorders", fd, {
+    await axios.post("https://my-backend-r5al.onrender.com/api/workorders", fd, {
       headers: { Authorization: `Bearer ${auth.token}` },
     });
     toast.push("Work order created", "success");
@@ -131,7 +131,7 @@ export default function WorkOrders() {
       ["description"].forEach((f) => fd.append(f, form[f]));
     }
     [...editFiles].forEach((f) => fd.append("attachments", f));
-    await axios.put(`http://localhost:4000/api/workorders/${editWO._id}`, fd, {
+    await axios.put(`https://my-backend-r5al.onrender.com/api/workorders/${editWO._id}`, fd, {
       headers: { Authorization: `Bearer ${auth.token}` },
     });
     toast.push("Work order updated", "success");
@@ -155,7 +155,7 @@ export default function WorkOrders() {
   const doDeleteWO = async () => {
     if (!confirmDel.id) return;
     await axios.delete(
-      `http://localhost:4000/api/workorders/${confirmDel.id}`,
+      `https://my-backend-r5al.onrender.com/api/workorders/${confirmDel.id}`,
       { headers: { Authorization: `Bearer ${auth.token}` } }
     );
     toast.push("Work order deleted", "info");
@@ -184,7 +184,7 @@ export default function WorkOrders() {
     if (!statusDlg.wo) return;
     const status = statusDlg.choice;
     await axios.post(
-      `http://localhost:4000/api/workorders/${statusDlg.wo._id}/status`,
+      `https://my-backend-r5al.onrender.com/api/workorders/${statusDlg.wo._id}/status`,
       { status },
       { headers: { Authorization: `Bearer ${auth.token}` } }
     );
@@ -204,7 +204,7 @@ export default function WorkOrders() {
   const addNote = async () => {
     if (!currentWO) return;
     await axios.post(
-      `http://localhost:4000/api/workorders/${currentWO._id}/notes`,
+      `https://my-backend-r5al.onrender.com/api/workorders/${currentWO._id}/notes`,
       { text: noteText, author: auth.user?.name || "UI" },
       { headers: { Authorization: `Bearer ${auth.token}` } }
     );
@@ -224,7 +224,7 @@ export default function WorkOrders() {
   const doRollback = async () => {
     if (!confirmRollback.id) return;
     await axios.post(
-      `http://localhost:4000/api/workorders/${confirmRollback.id}/rollback`,
+      `https://my-backend-r5al.onrender.com/api/workorders/${confirmRollback.id}/rollback`,
       {},
       { headers: { Authorization: `Bearer ${auth.token}` } }
     );

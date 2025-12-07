@@ -15,7 +15,7 @@ export default function Login(){
   const submit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post('http://localhost:4000/api/auth/login', { email, password });
+      const res = await axios.post('https://my-backend-r5al.onrender.com/api/auth/login', { email, password });
       auth.login(res.data.token, res.data.user);
       toast.push('Logged in','success');
       navigate('/work-orders');

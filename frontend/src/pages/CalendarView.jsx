@@ -20,7 +20,7 @@ export default function CalendarView() {
 
   const load = async () => {
     try {
-      const res = await axios.get("http://localhost:4000/api/pm", {
+      const res = await axios.get("https://my-backend-r5al.onrender.com/api/pm", {
         headers: { Authorization: `Bearer ${auth.token}` },
       });
 

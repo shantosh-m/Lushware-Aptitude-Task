@@ -9,12 +9,12 @@ export default function Notifications(){
   const auth = useAuth();
   const toast = useToast();
   const load = async () => {
-    const r = await axios.get('http://localhost:4000/api/notifications', { headers:{ Authorization:`Bearer ${auth.token}` }});
+    const r = await axios.get('https://my-backend-r5al.onrender.com/api/notifications', { headers:{ Authorization:`Bearer ${auth.token}` }});
     setList(r.data);
   };
   useEffect(()=>{ load(); },[]);
   const markRead = async (id) => {
-    await axios.post(`http://localhost:4000/api/notifications/${id}/read`, {}, { headers:{ Authorization:`Bearer ${auth.token}` }});
+    await axios.post(`https://my-backend-r5al.onrender.com/api/notifications/${id}/read`, {}, { headers:{ Authorization:`Bearer ${auth.token}` }});
     toast.push('Marked as read','success');
     load();
   };

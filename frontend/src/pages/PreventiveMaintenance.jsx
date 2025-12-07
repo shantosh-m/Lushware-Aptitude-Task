@@ -43,7 +43,7 @@ export default function PreventiveMaintenance() {
 
   const load = async () => {
     try {
-      const res = await axios.get("http://localhost:4000/api/pm", {
+      const res = await axios.get("https://my-backend-r5al.onrender.com/api/pm", {
         headers: { Authorization: `Bearer ${auth.token}` },
       });
       setList(res.data);
@@ -57,10 +57,10 @@ export default function PreventiveMaintenance() {
   const fetchMeta = async () => {
     try {
       const [a, t] = await Promise.all([
-        axios.get("http://localhost:4000/api/assets", {
+        axios.get("https://my-backend-r5al.onrender.com/api/assets", {
           headers: { Authorization: `Bearer ${auth.token}` },
         }),
-        axios.get("http://localhost:4000/api/technicians"),
+        axios.get("https://my-backend-r5al.onrender.com/api/technicians"),
       ]);
       setAssets(a.data);
       setTechs(t.data);
@@ -106,14 +106,14 @@ export default function PreventiveMaintenance() {
     try {
       if (editTask) {
         await axios.put(
-          `http://localhost:4000/api/pm/${editTask._id}`,
+          `https://my-backend-r5al.onrender.com/api/pm/${editTask._id}`,
           { ...form, checklist: checklistArray },
           { headers: { Authorization: `Bearer ${auth.token}` } }
         );
         toast.push("Preventive task updated", "success");
       } else {
         await axios.post(
-          "http://localhost:4000/api/pm",
+          "https://my-backend-r5al.onrender.com/api/pm",
           { ...form, checklist: checklistArray },
           { headers: { Authorization: `Bearer ${auth.token}` } }
         );
@@ -154,7 +154,7 @@ export default function PreventiveMaintenance() {
 
     try {
       await axios.post(
-        `http://localhost:4000/api/pm/${taskId}/checklist/${index}/toggle`,
+        `https://my-backend-r5al.onrender.com/api/pm/${taskId}/checklist/${index}/toggle`,
         { done: newDone }, // optional if backend toggles itself
         { headers: { Authorization: `Bearer ${auth.token}` } }
       );
@@ -168,7 +168,7 @@ export default function PreventiveMaintenance() {
   const markComplete = async (task) => {
     try {
       await axios.post(
-        `http://localhost:4000/api/pm/${task._id}/complete`,
+        `https://my-backend-r5al.onrender.com/api/pm/${task._id}/complete`,
         { checklist: task.checklist },
         { headers: { Authorization: `Bearer ${auth.token}` } }
       );
@@ -197,7 +197,7 @@ export default function PreventiveMaintenance() {
 
   const deleteTask = async (id) => {
     if (window.confirm("Delete this task?")) {
-      await axios.delete(`http://localhost:4000/api/pm/${id}`, {
+      await axios.delete(`https://my-backend-r5al.onrender.com/api/pm/${id}`, {
         headers: { Authorization: `Bearer ${auth.token}` },
       });
       toast.push("Task deleted", "info");

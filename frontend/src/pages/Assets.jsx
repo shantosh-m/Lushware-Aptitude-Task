@@ -26,7 +26,7 @@ export default function Assets() {
   const toast = useToast();
   const categories = ["HVAC", "Electrical", "Plumbing", "Fire Safety", "Other"];
   const load = async () => {
-    const r = await axios.get("http://localhost:4000/api/assets", {
+    const r = await axios.get("https://my-backend-r5al.onrender.com/api/assets", {
       headers: { Authorization: `Bearer ${auth.token}` },
     });
     setList(r.data);
@@ -35,7 +35,7 @@ export default function Assets() {
     load();
   }, []);
   const submit = async () => {
-    await axios.post("http://localhost:4000/api/assets", form, {
+    await axios.post("https://my-backend-r5al.onrender.com/api/assets", form, {
       headers: { Authorization: `Bearer ${auth.token}` },
     });
     setOpen(false);
@@ -58,7 +58,7 @@ export default function Assets() {
   };
   const update = async () => {
     if (!edit) return;
-    await axios.put(`http://localhost:4000/api/assets/${edit._id}`, form, {
+    await axios.put(`https://my-backend-r5al.onrender.com/api/assets/${edit._id}`, form, {
       headers: { Authorization: `Bearer ${auth.token}` },
     });
     setOpen(false);
@@ -72,7 +72,7 @@ export default function Assets() {
   };
   const doRemove = async () => {
     if (!confirmDel.id) return;
-    await axios.delete(`http://localhost:4000/api/assets/${confirmDel.id}`, {
+    await axios.delete(`https://my-backend-r5al.onrender.com/api/assets/${confirmDel.id}`, {
       headers: { Authorization: `Bearer ${auth.token}` },
     });
     setConfirmDel({ open: false, id: null });
